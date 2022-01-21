@@ -19,9 +19,10 @@ $ npm run build
 ## 2. 基本技术栈
 
 - `Koa2` 
-- `TypeScript`
+- `TypeScript4`
 - `腾讯MySQL云数据库` + `Sequelize ORM` 
 - `JWT` + `验证码`
+- `COS服务`
 
 ## 3. 重点文件或目录
 
