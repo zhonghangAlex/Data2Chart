@@ -1,5 +1,5 @@
 # Data2Chart Project
-
+> 项目主站: [https://datavis.all1024.com](https://datavis.all1024.com)
 ## 1. 快速开始
 
 ### 1.1 开发
@@ -18,11 +18,12 @@ $ npm run build
 
 ## 2. 基本技术栈
 
-- `Koa2` 
-- `TypeScript4`
+- `Koa2` +  `TypeScript4`
 - `腾讯MySQL云数据库` + `Sequelize ORM` 
-- `JWT` + `验证码`
+- `JWT` + `svg验证码`
 - `COS服务`
+- `Nginx` + `PM2` 应用部署
+- `nodemon` 开发进程管理
 
 ## 3. 重点文件或目录
 
@@ -64,7 +65,7 @@ $ npm run build
 4. 登录成功后的`JWT`存储于`Cookie`中，字段名为`jwt_token`。
 5. `Cookie`中还会存储一个字段`user`，用于记录`用户名`，方面前端提取使用。
 6. `Chart图片`应该需要借助`cos对象存储服务`，由前端直接上传，数据库只存链接。
-7. 源数据Excel表以`Buffer`数据存储于数据库.
+7. 源数据Excel表以`BLOB`格式存储于数据库.
 8. 数据库密码就不传在Github上了，可以私聊问我要。
 
 
