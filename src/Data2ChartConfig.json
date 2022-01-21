@@ -6,7 +6,7 @@
         "user": "root",
         "db": "data2chart",
         "dialect":"mysql",
-        "password": "Lzhlxdgxh1",
+        "password": "向李钟航要",
         "pool": {
             "max": 10,
             "min": 1,
