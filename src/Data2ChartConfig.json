@@ -1,0 +1,28 @@
+{
+    "env": "dev",
+    "db": {
+        "host": "sh-cynosdbmysql-grp-okb14uba.sql.tencentcdb.com",
+        "port": "25489",
+        "user": "root",
+        "db": "data2chart",
+        "dialect":"mysql",
+        "password": "Lzhlxdgxh1",
+        "pool": {
+            "max": 10,
+            "min": 1,
+            "acquire": 30000,
+            "idle": 10000
+        }
+    },
+    "captcha":{
+        "secretKey": "bb002608d64c9e0fa3c7544b245cad0f",
+        "expiresIn": 120000
+    },
+    "jwt":{
+        "secretKey": "xRptqGMfzRu7WKj0KtGAsvfUNljmzMkz",
+        "expiresIn": 86400000 
+    },
+    "password":{
+        "secretKey": "MfzR026KtG7544b245ca7WKdf02608dt"
+    }
+}

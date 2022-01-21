@@ -1,0 +1,14 @@
+logs/
+npm-debug.log
+node_modules/
+coverage/
+.idea/
+.nyc_output/
+.DS_Store
+package-lock.json
+*.swp
+yarn.lock
+test-results.xml
+__pycache__/
+v8-compile-cache-0/
+
