@@ -8,11 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @desc t_sysuser 用户信息表
  */
 const sequelize_typescript_1 = require("sequelize-typescript");
+const t_project_model_1 = __importDefault(require("./t_project.model"));
 let User = class User extends sequelize_typescript_1.Model {
 };
 __decorate([
@@ -20,8 +24,11 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "id", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Index)({ 'name': 'idx_user_name', 'unique': true }),
-    (0, sequelize_typescript_1.Column)({ 'comment': '用户名', 'type': sequelize_typescript_1.DataType.STRING(255) }),
+    (0, sequelize_typescript_1.Column)({ 'comment': '用户编号', 'type': sequelize_typescript_1.DataType.STRING(255), 'unique': true, 'allowNull': false }),
+    __metadata("design:type", String)
+], User.prototype, "user_id", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ 'comment': '用户名/账号', 'type': sequelize_typescript_1.DataType.STRING(255), 'unique': true, 'allowNull': false }),
     __metadata("design:type", String)
 ], User.prototype, "user_name", void 0);
 __decorate([
@@ -52,6 +59,10 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ 'comment': '数据更新时间', 'type': sequelize_typescript_1.DataType.DATE }),
     __metadata("design:type", Date)
 ], User.prototype, "modify_time", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => t_project_model_1.default, { 'sourceKey': 'user_name', 'foreignKey': 'user_name' }),
+    __metadata("design:type", Array)
+], User.prototype, "project_data", void 0);
 User = __decorate([
     (0, sequelize_typescript_1.Table)({ 'modelName': 't_sysuser', 'timestamps': false })
 ], User);

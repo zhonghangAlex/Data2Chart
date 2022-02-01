@@ -1,16 +1,19 @@
 /**
  * @desc t_sysuser 用户信息表
  */
-import { Column, DataType, Model, Table, Index } from 'sequelize-typescript';
+import { Column, DataType, Model, Table, Index, HasMany } from 'sequelize-typescript';
+import Project from './t_project.model';
 
 @Table({ 'modelName': 't_sysuser', 'timestamps': false })
 
 export default class User extends Model<User> {
   @Column({ 'comment': '自增ID', 'type': DataType.INTEGER, 'primaryKey': true, 'autoIncrement': true, 'allowNull': false })
   public id!: number;
-
-  @Index({ 'name': 'idx_user_name', 'unique': true })
-  @Column({ 'comment': '用户名', 'type': DataType.STRING(255) })
+  
+  @Column({ 'comment': '用户编号', 'type': DataType.STRING(255), 'unique': true, 'allowNull': false })
+  public user_id!: string;
+  
+  @Column({ 'comment': '用户名/账号', 'type': DataType.STRING(255), 'unique': true, 'allowNull': false })
   public user_name!: string;
 
   @Column({ 'comment': '邮箱', 'type': DataType.STRING(255) })
@@ -33,4 +36,7 @@ export default class User extends Model<User> {
 
   @Column({ 'comment': '数据更新时间', 'type': DataType.DATE })
   public readonly modify_time!: Date;
+
+  @HasMany(() => Project, { 'sourceKey': 'user_name', 'foreignKey': 'user_name' })
+  public project_data!: Project[]
 }

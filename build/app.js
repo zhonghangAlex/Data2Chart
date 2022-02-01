@@ -17,6 +17,8 @@ const koa_jwt_1 = __importDefault(require("koa-jwt"));
 const koa_mount_1 = __importDefault(require("koa-mount"));
 const t_sysuser_model_1 = __importDefault(require("./db/model/t_sysuser.model"));
 const t_project_model_1 = __importDefault(require("./db/model/t_project.model"));
+const t_chartpic_model_1 = __importDefault(require("./db/model/t_chartpic.model"));
+const t_charttype_model_1 = __importDefault(require("./db/model/t_charttype.model"));
 class App {
     constructor() {
         this.app = new koa_1.default();
@@ -58,6 +60,8 @@ class App {
         // 初始化表（项目初始化时候使用，不要轻易打开）
         t_sysuser_model_1.default.sync();
         t_project_model_1.default.sync();
+        t_chartpic_model_1.default.sync();
+        t_charttype_model_1.default.sync();
     }
     /**
      * step2.添加系统中间件，各种前置的parser等
@@ -80,7 +84,7 @@ class App {
         });
         let staticPath = path_1.default.resolve(__dirname, '../client/dist');
         let publicPath = path_1.default.resolve(__dirname, '../public');
-        this.app.use((0, koa_jwt_1.default)({ 'secret': this.config.config.jwt.secretKey, 'key': 'jwt', 'cookie': 'jwt_token' }).unless({ 'path': [/^\/(index|login|js|img|css|font|images|public)/] }));
+        this.app.use((0, koa_jwt_1.default)({ 'secret': this.config.config.jwt.secretKey, 'key': 'jwt', 'cookie': 'jwt_token' }).unless({ 'path': [/^\/(index|login|js|img|css|font|images|public|cms)/] }));
         this.app.use((0, koa_static_1.default)(staticPath, { 'index': 'index.html', 'maxage': 24 * 3600 * 1000, 'defer': true }));
         // 挂载多个静态目录
         this.app.use((0, koa_mount_1.default)('/public', (0, koa_static_1.default)(publicPath)));

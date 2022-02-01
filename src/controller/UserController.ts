@@ -8,6 +8,12 @@ export default new class UserController {
      */
     public async getSomeUsers(ctx: Router.RouterContext){
         let data = await UserDao.findUserByIds([1]);
-        ctx.body = data;
+        ctx.body = {
+            'code': 0,
+            'message': '获取信息成功',
+            'result': {
+                userData: data
+            }
+        };
     }
 };

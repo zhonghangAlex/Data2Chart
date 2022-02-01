@@ -11,6 +11,12 @@ exports.default = new class UserController {
      */
     async getSomeUsers(ctx) {
         let data = await UserDao_1.default.findUserByIds([1]);
-        ctx.body = data;
+        ctx.body = {
+            'code': 0,
+            'message': '获取信息成功',
+            'result': {
+                userData: data
+            }
+        };
     }
 };

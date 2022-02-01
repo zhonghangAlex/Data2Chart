@@ -17,14 +17,14 @@ router.post('/validateUsr', ValidCaptcha, async (ctx) => {
         ctx.body = { 'code': -1, 'message': '验证码错误!' };
         return;
     }
-    let username = ctx.request.body.username,
+    let user_name = ctx.request.body.user_name,
         password = ctx.request.body.password;
 
     const password_client = createHmac(
         'sha256',
         configIns.config.password.secretKey
     ).update(password).digest('base64');
-    let user = await UserDao.findUserByName(username);
+    let user = await UserDao.findUserByName(user_name);
 
     if (!user) {
         ctx.body = { 'code': -2, 'message': '用户不存在!' };

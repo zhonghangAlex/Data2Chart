@@ -16,7 +16,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
-const t_sysuser_model_1 = __importDefault(require("./t_sysuser.model"));
+const t_chartpic_model_1 = __importDefault(require("./t_chartpic.model"));
 let Project = class Project extends sequelize_typescript_1.Model {
 };
 __decorate([
@@ -24,17 +24,19 @@ __decorate([
     __metadata("design:type", Number)
 ], Project.prototype, "id", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Index)({ 'name': 'idx_project_name', 'unique': true }),
-    (0, sequelize_typescript_1.Column)({ 'comment': '项目名', 'type': sequelize_typescript_1.DataType.STRING(255) }),
+    (0, sequelize_typescript_1.Column)({ 'comment': '项目编号', 'type': sequelize_typescript_1.DataType.STRING(255), 'unique': true, 'allowNull': false }),
     __metadata("design:type", String)
-], Project.prototype, "project_name", void 0);
+], Project.prototype, "project_id", void 0);
 __decorate([
-    (0, sequelize_typescript_1.ForeignKey)(() => { return t_sysuser_model_1.default; }),
-    (0, sequelize_typescript_1.Column)({ 'comment': '用户名', 'type': sequelize_typescript_1.DataType.STRING(255) }),
+    (0, sequelize_typescript_1.Column)({ 'comment': '用户名', 'type': sequelize_typescript_1.DataType.STRING(255), 'allowNull': false }),
     __metadata("design:type", String)
 ], Project.prototype, "user_name", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ 'comment': '存储数据类型', 'type': sequelize_typescript_1.DataType.INTEGER }),
+    (0, sequelize_typescript_1.Column)({ 'comment': '项目名', 'type': sequelize_typescript_1.DataType.STRING(255), 'allowNull': false }),
+    __metadata("design:type", String)
+], Project.prototype, "project_name", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ 'comment': '存储数据类型', 'type': sequelize_typescript_1.DataType.INTEGER, 'defaultValue': 1 }),
     __metadata("design:type", Number)
 ], Project.prototype, "data_type", void 0);
 __decorate([
@@ -42,19 +44,27 @@ __decorate([
     __metadata("design:type", Buffer)
 ], Project.prototype, "data_file", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ 'comment': '存储数据字符', 'type': sequelize_typescript_1.DataType.TEXT }),
+    (0, sequelize_typescript_1.Column)({ 'comment': '存储数据字符', 'type': sequelize_typescript_1.DataType.TEXT, 'defaultValue': '{}' }),
     __metadata("design:type", String)
 ], Project.prototype, "data_string", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ 'comment': '项目配置项数据', 'type': sequelize_typescript_1.DataType.TEXT }),
-    __metadata("design:type", String)
-], Project.prototype, "vis_config", void 0);
+    (0, sequelize_typescript_1.Column)({ 'comment': '封面图片', 'type': sequelize_typescript_1.DataType.BLOB }),
+    __metadata("design:type", Buffer)
+], Project.prototype, "index_pic", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ 'comment': '导出图片', 'type': sequelize_typescript_1.DataType.STRING(255) }),
-    __metadata("design:type", String)
-], Project.prototype, "export_img", void 0);
+    (0, sequelize_typescript_1.Column)({ 'comment': '第一步新建项目是否完成', 'type': sequelize_typescript_1.DataType.INTEGER, 'defaultValue': 1 }),
+    __metadata("design:type", Number)
+], Project.prototype, "first_finished", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ 'comment': '项目分享hash地址', 'type': sequelize_typescript_1.DataType.STRING(255) }),
+    (0, sequelize_typescript_1.Column)({ 'comment': '第二步数据预处理是否完成', 'type': sequelize_typescript_1.DataType.INTEGER, 'defaultValue': -1 }),
+    __metadata("design:type", Number)
+], Project.prototype, "second_finished", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ 'comment': '第三步可视化配置是否完成', 'type': sequelize_typescript_1.DataType.INTEGER, 'defaultValue': -1 }),
+    __metadata("design:type", Number)
+], Project.prototype, "third_finished", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ 'comment': '项目分享hash地址', 'type': sequelize_typescript_1.DataType.STRING(255), 'defaultValue': '' }),
     __metadata("design:type", String)
 ], Project.prototype, "share_hash", void 0);
 __decorate([
@@ -65,6 +75,10 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ 'comment': '数据更新时间', 'type': sequelize_typescript_1.DataType.DATE }),
     __metadata("design:type", Date)
 ], Project.prototype, "modify_time", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => t_chartpic_model_1.default, { 'sourceKey': 'project_id', 'foreignKey': 'project_id' }),
+    __metadata("design:type", Array)
+], Project.prototype, "chartpic_data", void 0);
 Project = __decorate([
     (0, sequelize_typescript_1.Table)({ 'modelName': 't_project', 'timestamps': false })
 ], Project);

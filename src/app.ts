@@ -10,8 +10,10 @@ import {login} from './router/login';
 import { notFoundRouter } from './router/notFoundRouter';
 import koaJwt from 'koa-jwt';
 import koaMount from 'koa-mount';
-// import User from './db/model/t_sysuser.model';
-// import Project from './db/model/t_project.model';
+import User from './db/model/t_sysuser.model';
+import Project from './db/model/t_project.model';
+import ChartPic from './db/model/t_chartpic.model';
+import ChartType from './db/model/t_charttype.model';
 
 
 export class App {
@@ -62,8 +64,10 @@ export class App {
         //初始化db连接
         DbIns.reconnect(this.config.config.db);
         // 初始化表（项目初始化时候使用，不要轻易打开）
-        // User.sync();
-        // Project.sync();
+        User.sync();
+        Project.sync();
+        ChartPic.sync();
+        ChartType.sync();
     }
 
     /**
@@ -88,7 +92,7 @@ export class App {
         
         let staticPath = path.resolve(__dirname, '../client/dist');
         let publicPath = path.resolve(__dirname, '../public');
-        this.app.use(koaJwt({'secret':this.config.config.jwt.secretKey, 'key':'jwt', 'cookie': 'jwt_token'}).unless({ 'path': [/^\/(index|login|js|img|css|font|images|public)/] }));
+        this.app.use(koaJwt({'secret':this.config.config.jwt.secretKey, 'key':'jwt', 'cookie': 'jwt_token'}).unless({ 'path': [/^\/(index|login|js|img|css|font|images|public|cms)/] }));
         this.app.use(koaStatic(staticPath, { 'index': 'index.html', 'maxage': 24 * 3600 * 1000, 'defer': true }));
         // 挂载多个静态目录
         this.app.use(koaMount('/public', koaStatic(publicPath)));
