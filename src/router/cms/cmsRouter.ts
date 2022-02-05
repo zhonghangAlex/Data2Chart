@@ -27,6 +27,10 @@ router.post('/deleteUser', UserController.getSomeUsers);
 router.post('/addProject', ProjectController.addProject);
 /* 查询用户的项目信息 */
 router.get('/getAllProjects', ProjectController.getAllProjects);
+/* 根据项目id获取某项目的数据 */
+router.get('/getProjectData', ProjectController.getProjectData);
+/* 根据项目id更新某项目的数据 */
+router.post('/updateProjectData', ProjectController.updateProjectData);
 
 /**************************************【数据源选定相关接口↓】************************************/
 // 待定

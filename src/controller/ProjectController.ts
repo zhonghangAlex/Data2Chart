@@ -57,7 +57,50 @@ export default new class UserController {
             let data = await ProjectDao.getAllProjects(user_name);
             ctx.body = { code: 0, message: `${user_name}的项目信息获取成功`, result: { data }};
         } catch(e) {
-            ctx.body = { code: 1, message: '数据存储异常', result: {details: `${e}` }};
+            ctx.body = { code: 1, message: '数据查询异常', result: {details: `${e}` }};
+        }
+    }
+    /**
+     * 获取某项目的数据
+     * @param ctx 
+     */
+    public async getProjectData(ctx: Router.RouterContext){
+        let project_id = ctx.request.query.project_id;
+        // 缺失检查
+        if (!project_id){
+            ctx.body = { code: 1, message: '请求参数错误或内容缺失', result: null };
+            return;
+        }
+        // 查询操作
+        try {
+            let data = await ProjectDao.getOneProject(project_id);
+            if (!data) {
+                ctx.body = { code: 1, message: '未查找到相关数据，请检查项目ID', result: null };
+                return;
+            }
+            ctx.body = { code: 0, message: '的项目数据获取成功', result: { data: JSON.parse(data.data_string) }};
+        } catch(e) {
+            ctx.body = { code: 1, message: '数据查询异常', result: {details: `${e}` }};
+        }
+    }
+    /**
+     * 更新某项目的数据
+     * @param ctx 
+     */
+    public async updateProjectData(ctx: Router.RouterContext){
+        let project_id = ctx.request.body.project_id;
+        let data_string = ctx.request.body.data_string;
+        // 缺失检查
+        if (!project_id || !data_string){
+            ctx.body = { code: 1, message: '请求参数错误或内容缺失', result: null };
+            return;
+        }
+        // 数据更新操作
+        try {
+            let data = await ProjectDao.updateProjectData(project_id, data_string);
+            ctx.body = { code: 0, message: '项目数据源更新成功', result: { project_id, data_string }};
+        } catch(e) {
+            ctx.body = { code: 1, message: '数据更新异常', result: {details: `${e}` }};
         }
     }
 };

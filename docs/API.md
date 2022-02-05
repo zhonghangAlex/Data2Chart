@@ -154,6 +154,150 @@ captcha_client : string 用户输入的验证码
 
 - 待撰写
 
+### 7. 项目相关——获取某项目的数据源
+
+- `Method`: GET
+- `Path`: /cms/getProjectData
+- `Params`: 
+  project_id : string 项目ID
+- `Notice`:  用于测试的project_id为`32958067-a627-4b64-abaa-43c52734b649`
+- `Case`:
+
+```json
+// 项目ID错误
+{
+    "code": 1,
+    "message": "未查找到相关数据，请检查项目ID",
+    "result": null
+}
+```
+
+```json
+// 请求参数错误
+{
+    "code": 1,
+    "message": "请求参数错误或内容缺失",
+    "result": null
+}
+```
+
+```json
+// 正常结果
+{
+    "code": 0,
+    "message": "的项目数据获取成功",
+    "result": {
+        "data": {
+            "title": "demo.csv",
+            "data": [
+                {
+                    "name": "Karry1",
+                    "age": 13,
+                    "height": 1.57,
+                    "weight": 71,
+                    "hobby": "qw",
+                    "comp6": 3.14
+                },
+                {
+                    "name": "Karry2",
+                    "age": 14,
+                    "height": 1.76,
+                    "weight": 72,
+                    "hobby": "axqaa",
+                    "comp6": 3.52
+                },
+                {
+                    "name": "Karry3",
+                    "age": 15,
+                    "height": 1.78,
+                    "weight": 73,
+                    "hobby": "vsc",
+                    "comp6": 3.56
+                }
+            ],
+            "cols": [
+                {
+                    "cid": 1,
+                    "cKey": "name",
+                    "cname": "姓名",
+                    "type": "string"
+                },
+                {
+                    "cid": 2,
+                    "cKey": "age",
+                    "cname": "年龄",
+                    "type": "number"
+                },
+                {
+                    "cid": 3,
+                    "cKey": "height",
+                    "cname": "身高",
+                    "type": "number"
+                },
+                {
+                    "cid": 4,
+                    "cKey": "weight",
+                    "cname": "体重",
+                    "type": "number"
+                },
+                {
+                    "cid": 5,
+                    "cKey": "hobby",
+                    "cname": "兴趣",
+                    "type": "string"
+                },
+                {
+                    "cid": 6,
+                    "cKey": "comp6",
+                    "cname": "随便加了一列",
+                    "type": "number"
+                }
+            ]
+        }
+    }
+}
+```
+
+### 8. 项目相关——更新某项目的数据源
+
+- `Method`: POST
+
+- `Path`: /cms/updateProjectData
+
+- `Params`: 
+  project_id : string 项目ID
+
+  data_string : string 数据字符串
+
+- `Notice`:  
+
+  ① 用于测试的project_id为`32958067-a627-4b64-abaa-43c52734b649`
+
+  ② `data_string`存储的时候是字符串，但是浏览器可能会自动将一个obj字符串化一下，所以测试的时候看一下是否需要对data_string进行`JSON.stringfy`，额外进行一次`stringfy`可能会导致`parse`失败
+
+- `Case`:
+
+```json
+// 请求参数错误
+{
+    "code": 1,
+    "message": "请求参数错误或内容缺失",
+    "result": null
+}
+```
+
+```json
+// 正常结果
+{
+    "code": 0,
+    "message": "项目数据源更新成功",
+    "result": {
+        "project_id": "32958067-a627-4b64-abaa-43c52734b649",
+        "data_string": "xxxxxxx"
+    }
+}
+```
+
 ### 7. 图表及配置相关——获取一个项目下所有可视化图表信息
 
 - 待撰写

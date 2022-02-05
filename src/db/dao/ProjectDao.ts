@@ -26,4 +26,20 @@ export default new class ProjectDao {
     public async getAllProjects(user_name: string) {
         return await Project.findAll({where: {user_name: user_name}});
     }
+
+    /**
+     * 根据项目id查询某一个项目信息
+     * @param project_id
+     */
+    public async getOneProject(project_id: string) {
+        return await Project.findOne({where: {project_id: project_id}});
+    }
+
+    /**
+     * 根据项目id，更新某一个项目的数据源
+     * @param project_id
+     */
+    public async updateProjectData(project_id: string, data_string: string) {
+        return await Project.update({data_string}, {where: {project_id: project_id}});
+    }
 };
