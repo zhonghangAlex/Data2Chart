@@ -4,28 +4,45 @@
 
 ### 1. 登录与权鉴——获取验证码svg接口
 - `Method`: GET
+
 - `Path`: /login/getcaptcha
+
 - `Params`: 
-v : float 随机数
-- `Notice`: 前端请求需要拼接为`/login/getcaptcha?v=xxx`, xxx为随机数用于消除缓存, 可以直接通过img的src标签获取。
+  v : float 随机数
+
+- `Notice`: 
+
+  ① 前端请求需要拼接为`/login/getcaptcha?v=xxx`, xxx为随机数用于消除缓存, 可以直接通过img的src标签获取；
+
+  ② 同时实现点击验证码图片，重新请求新的验证码图片。
+
 - `Case`: svg图片，可以直接点击[https://datavis.all1024.com/login/getcaptcha?v=xxx](https://datavis.all1024.com/login/getcaptcha?v=xxx)查看。
 
 ### 2. 登录与权鉴——登录验证接口
 - `Method`: POST
+
 - `Path`: /login/validateUsr
+
 - `Params`: 
-user_name : string 用户名
-password : string 密码
+  user_name : string 用户名
+  password : string 密码
+
 - `Cookie`: 
-captcha_client : string 用户输入的验证码 
-- `Notice`: 将用户输入的验证码写入到Cookie中。
+  captcha_client : string 用户输入的验证码 
+
+- `Notice`: 
+
+  ① 测试账号：alexzhli  测试密码：123456
+
+  ② 将用户输入的验证码写入到Cookie中。
+
 - `Case`:
 ```json
 // 用户不存在/密码错误/验证码错误
 {
   "code": 1,
   "message": "用户不存在/密码错误/验证码错误",
-  "result": {}
+  "result": null
 }
 ```
 
@@ -34,10 +51,30 @@ captcha_client : string 用户输入的验证码
 {
   "code": 0,
   "message": "登录成功",
-  "result": {}
+  "result": {
+  	"user_name": "alexzhli"
+  }
 }
 ```
-### 3. 项目相关——获取某用户的全部项目信息
+### 3. 登录与权鉴——退出登录
+
+- `Method`: POST
+- `Path`: /login/logout
+- `Params`: 
+  不需要传递任何参数
+- `Notice`: 清除Cookie中的`user`和`jwt_token`（前端也清除一下更加保险）。
+- `Case`:
+
+```json
+// 正常结果
+{
+  "code": 0,
+  "message": "退出登录成功",
+  "result": null
+}
+```
+
+### 4. 项目相关——获取某用户的全部项目信息
 
 - `Method`: GET
 - `Path`: /cms/getAllProjects
@@ -89,7 +126,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 4. 项目相关——新增一个项目并且初始化图表
+### 5. 项目相关——新增一个项目并且初始化图表
 
 - `Method`: POST
 
@@ -155,7 +192,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 5.  项目相关——删除一个项目并且删除项目下的图表
+### 6.  项目相关——删除一个项目并且删除项目下的图表
 
 - `Method`: POST
 
@@ -187,7 +224,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 6.  项目相关——更新当前项目的编辑状态（各个步骤的完成状态）
+### 7.  项目相关——更新当前项目的编辑状态（各个步骤的完成状态）
 
 - `Method`: POST
 
@@ -248,7 +285,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 7.  项目相关——获取某项目的数据源
+### 8.  项目相关——获取某项目的数据源
 
 - `Method`: GET
 
@@ -294,7 +331,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 8. 项目相关——更新某项目的数据源
+### 9. 项目相关——更新某项目的数据源
 
 - `Method`: POST
 
@@ -332,7 +369,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 9. 图表及配置相关——获取当前项目的全部图表信息
+### 10. 图表及配置相关——获取当前项目的全部图表信息
 
 - `Method`: GET
 
@@ -384,7 +421,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 10. 图表及配置相关——某项目新建一个可视化图表（预留API，暂时用不着）
+### 11. 图表及配置相关——某项目新建一个可视化图表（预留API，暂时用不着）
 
 - `Method`: POST
 
@@ -430,7 +467,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 11. 图表及配置相关——某项目删除一个可视化图表（预留API，暂时用不着）
+### 12. 图表及配置相关——某项目删除一个可视化图表（预留API，暂时用不着）
 
 - `Method`: POST
 
@@ -460,7 +497,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 12. 图表及配置相关——确定/修改图表类型并初始化配置（标题 + 水印 + 可视化等配置）
+### 13. 图表及配置相关——确定/修改图表类型并初始化配置（标题 + 水印 + 可视化等配置）
 
 - `Method`: POST
 
@@ -508,12 +545,12 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 13. 图表及配置相关——保存某个图表的配置信息（标题 + 水印 + 可视化等配置）
+### 14. 图表及配置相关——保存某个图表的配置信息（标题 + 水印 + 可视化等配置）
 
 - 可以直接复用12接口
 - 在单独保存某个图表配置的时候使用。
 
-### 14. 图表及配置相关——获取某个图表的全部信息
+### 15. 图表及配置相关——获取某个图表的全部信息
 
 - `Method`: GET
 
@@ -561,7 +598,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 15. 发布与导出相关——更新当前图表的导出图片，并设置为主图
+### 16. 发布与导出相关——更新当前图表的导出图片，并设置为主图
 
 - `Method`: POST
 
@@ -600,15 +637,15 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 16. 发布与导出相关——获取当前图表的导出图片
+### 17. 发布与导出相关——获取当前图表的导出图片
 
 - 可以直接复用14接口
 
-### 17. 发布与导出相关——获取某个项目的数据源
+### 18. 发布与导出相关——获取某个项目的数据源
 
 - 可以直接复用7接口
 
-### 18. 发布与导出相关——获取当前图表的html代码
+### 19. 发布与导出相关——获取当前图表的html代码
 
 - `Method`: GET
 
@@ -645,7 +682,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 19. 发布与导出相关——下载当前项目的导出html文件
+### 20. 发布与导出相关——下载当前项目的导出html文件
 
 - `Method`: POST
 
