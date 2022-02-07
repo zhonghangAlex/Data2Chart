@@ -47,7 +47,7 @@ router.post('/validateUsr', Captcha_1.ValidCaptcha, async (ctx) => {
         'maxAge': config_1.configIns.config.jwt.expiresIn,
         'httpOnly': false,
     });
-    ctx.body = { 'code': 0, 'message': 'success' };
+    ctx.body = { 'code': 0, 'message': '登录成功' };
 });
 router.post('/logout', async (ctx) => {
     ctx.cookies.set('jwt_token', '', { 'maxAge': 0 });

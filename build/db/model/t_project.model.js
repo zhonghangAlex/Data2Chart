@@ -48,8 +48,8 @@ __decorate([
     __metadata("design:type", String)
 ], Project.prototype, "data_string", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ 'comment': '封面图片', 'type': sequelize_typescript_1.DataType.BLOB }),
-    __metadata("design:type", Buffer)
+    (0, sequelize_typescript_1.Column)({ 'comment': '封面图片', 'type': sequelize_typescript_1.DataType.TEXT }),
+    __metadata("design:type", String)
 ], Project.prototype, "index_pic", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ 'comment': '第一步新建项目是否完成', 'type': sequelize_typescript_1.DataType.INTEGER, 'defaultValue': 1 }),

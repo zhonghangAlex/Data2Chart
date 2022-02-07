@@ -29,8 +29,8 @@ export default class Project extends Model<Project> {
   @Column({ 'comment': '存储数据字符', 'type': DataType.TEXT, 'defaultValue': '{}' })
   public data_string!: string;
 
-  @Column({ 'comment': '封面图片', 'type': DataType.BLOB })
-  public index_pic!: Buffer;
+  @Column({ 'comment': '封面图片', 'type': DataType.TEXT })
+  public index_pic!: string;
 
   @Column({ 'comment': '第一步新建项目是否完成', 'type': DataType.INTEGER, 'defaultValue': 1 })
   public first_finished!: number;

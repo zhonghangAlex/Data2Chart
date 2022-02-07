@@ -22,7 +22,7 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.Column)({ 'comment': '图表类型编号', 'type': sequelize_typescript_1.DataType.STRING(255), 'unique': true, 'allowNull': false }),
     __metadata("design:type", String)
-], ChartType.prototype, "charttype_id", void 0);
+], ChartType.prototype, "chart_type", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ 'comment': '图表类型名称', 'type': sequelize_typescript_1.DataType.STRING(255) }),
     __metadata("design:type", String)

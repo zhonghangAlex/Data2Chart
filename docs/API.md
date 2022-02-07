@@ -89,7 +89,7 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 4. 项目相关——新增一个项目
+### 4. 项目相关——新增一个项目并且初始化图表
 
 - `Method`: POST
 
@@ -98,9 +98,20 @@ captcha_client : string 用户输入的验证码
 - `Params`:
 
   user_name : string 用户名
+
   project_name : string 项目名
 
-- `Notice`：当新建的项目名重复的时候回返回相关错误信息
+  data_string ：string  源数据 （标准json字符串格式）
+
+- `Notice`：
+
+  ① 当新建的项目名重复的时候回返回相关错误信息；
+
+  ② 新建项目的同时会默认新建一个新的图表（预留了一个项目对应多图表的能力）；
+
+  ③ data_string 需要为标准json格式；
+
+  ④ `data_string`后端存储的时候是字符串，但是浏览器可能会自动将一个obj字符串化一下，所以测试的时候看一下是否需要对data_string进行`JSON.stringfy`，额外进行一次`stringfy`可能会导致`parse`失败
 
 - `Case`:
 
@@ -146,21 +157,114 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 5. 项目相关——删除一个项目
+### 5.  项目相关——删除一个项目并且删除项目下的图表
 
-- 待撰写
+- `Method`: POST
 
-### 6.  项目相关——更新当前项目的编辑状态（进行到哪一步）
+- `Path`: /cms/deleteProject
 
-- 待撰写
+- `Params`:
 
-### 7. 项目相关——获取某项目的数据源
+  project_id : string 项目ID
+
+- `Notice`：删除一个项目会删除这个项目下所有图表的信息
+
+- `Case`:
+
+```json
+// 请求参数错误
+{
+    "code": 1,
+    "message": "请求参数错误或内容缺失",
+    "result": null
+}
+```
+
+```json
+// 正常结果
+{
+    "code": 0,
+    "message": "项目删除成功",
+    "result": null
+}
+```
+
+### 6.  项目相关——更新当前项目的编辑状态（各个步骤的完成状态）
+
+- `Method`: POST
+
+- `Path`: /cms/updateProjectStatus
+
+- `Params`:
+
+  project_id : string 项目ID
+
+  first_finished ：number 第一步新建项目是否完成
+
+  second_finished ：number 第二步数据预处理是否完成
+
+  third_finished ：number 第三步可视化配置是否完成
+
+- `Notice`：1 为完成， -1为未完成
+
+- `Case`:
+
+```json
+// 请求参数错误
+{
+    "code": 1,
+    "message": "请求参数错误或内容缺失",
+    "result": null
+}
+```
+
+```json
+// 状态值不为数字
+{
+    "code": 1,
+    "message": "状态值应该为数字",
+    "result": null
+}
+```
+
+```json
+// 状态值不为1或者-1
+{
+    "code": 1,
+    "message": "状态值必须为-1或1的数字",
+    "result": null
+}
+```
+
+```json
+// 正常结果
+{
+    "code": 0,
+    "message": "项目状态更新成功",
+    "result": {
+        "project_id": "32958067-a627-4b64-abaa-43c52734b649",
+        "first_finished": 1,
+        "second_finished": 1,
+        "third_finished": 1
+    }
+}
+```
+
+### 7.  项目相关——获取某项目的数据源
 
 - `Method`: GET
+
 - `Path`: /cms/getProjectData
+
 - `Params`: 
   project_id : string 项目ID
-- `Notice`:  用于测试的project_id为`32958067-a627-4b64-abaa-43c52734b649`
+  
+- `Notice`:  
+
+  ① 用于测试的project_id为`32958067-a627-4b64-abaa-43c52734b649`；
+
+  ② 返回的data部分为json的字符串，前端按需进行`JSON.parse()`等操作。
+
 - `Case`:
 
 ```json
@@ -187,73 +291,7 @@ captcha_client : string 用户输入的验证码
     "code": 0,
     "message": "的项目数据获取成功",
     "result": {
-        "data": {
-            "title": "demo.csv",
-            "data": [
-                {
-                    "name": "Karry1",
-                    "age": 13,
-                    "height": 1.57,
-                    "weight": 71,
-                    "hobby": "qw",
-                    "comp6": 3.14
-                },
-                {
-                    "name": "Karry2",
-                    "age": 14,
-                    "height": 1.76,
-                    "weight": 72,
-                    "hobby": "axqaa",
-                    "comp6": 3.52
-                },
-                {
-                    "name": "Karry3",
-                    "age": 15,
-                    "height": 1.78,
-                    "weight": 73,
-                    "hobby": "vsc",
-                    "comp6": 3.56
-                }
-            ],
-            "cols": [
-                {
-                    "cid": 1,
-                    "cKey": "name",
-                    "cname": "姓名",
-                    "type": "string"
-                },
-                {
-                    "cid": 2,
-                    "cKey": "age",
-                    "cname": "年龄",
-                    "type": "number"
-                },
-                {
-                    "cid": 3,
-                    "cKey": "height",
-                    "cname": "身高",
-                    "type": "number"
-                },
-                {
-                    "cid": 4,
-                    "cKey": "weight",
-                    "cname": "体重",
-                    "type": "number"
-                },
-                {
-                    "cid": 5,
-                    "cKey": "hobby",
-                    "cname": "兴趣",
-                    "type": "string"
-                },
-                {
-                    "cid": 6,
-                    "cKey": "comp6",
-                    "cname": "随便加了一列",
-                    "type": "number"
-                }
-            ]
-        }
+        "data": "{}"
     }
 }
 ```
@@ -267,13 +305,11 @@ captcha_client : string 用户输入的验证码
 - `Params`: 
   project_id : string 项目ID
 
-  data_string : string 数据字符串
+  data_string : string 数据JSON字符串
 
 - `Notice`:  
 
-  ① 用于测试的project_id为`32958067-a627-4b64-abaa-43c52734b649`
-
-  ② `data_string`存储的时候是字符串，但是浏览器可能会自动将一个obj字符串化一下，所以测试的时候看一下是否需要对data_string进行`JSON.stringfy`，额外进行一次`stringfy`可能会导致`parse`失败
+  ① 用于测试的project_id为`32958067-a627-4b64-abaa-43c52734b649`。
 
 - `Case`:
 
@@ -293,16 +329,64 @@ captcha_client : string 用户输入的验证码
     "message": "项目数据源更新成功",
     "result": {
         "project_id": "32958067-a627-4b64-abaa-43c52734b649",
-        "data_string": "xxxxxxx"
+        "data_string": "{}"
     }
 }
 ```
 
-### 7. 图表及配置相关——获取一个项目下所有可视化图表信息
+### 9. 图表及配置相关——获取当前项目的全部图表信息
 
-- 待撰写
+- `Method`: GET
 
-### 8. 图表及配置相关——某项目新建一个可视化图表
+- `Path`: /cms/getAllChartPic
+
+- `Params`: 
+  project_id : string 项目ID
+  
+- `Notice`:  
+
+  ① 用于测试的project_id为`32958067-a627-4b64-abaa-43c52734b649`；
+
+  ② 这里预留了一个项目多图表的拓展，因此在项目与图表一对一的情况下，直接取返回data数组的第一个数据即可；
+
+  ③ 返回的vis_config、watermark_config等字段为json的字符串，前端按需进行`JSON.parse()`等操作。
+
+- `Case`:
+
+```json
+// 请求参数错误
+{
+    "code": 1,
+    "message": "请求参数错误或内容缺失",
+    "result": null
+}
+```
+
+```json
+// 正常结果
+{
+    "code": 0,
+    "message": "图表信息查询成功",
+    "result": {
+        "data": [
+            {
+                "id": 12,
+                "chartpic_id": "902004e8-51df-4380-811a-e983dbe136fc", // 图表id
+                "project_id": "32958067-a627-4b64-abaa-43c52734b649", // 项目id
+                "chart_type": "Line",  // 图表类型
+                "chart_title": null, // 图表标题
+                "vis_config": "{}", // 图表可视化相关配置
+                "watermark_config": "{}", // 图表水印相关配置
+                "export_img": null, // 导出图片base64
+                "create_time": "2022-02-07T15:02:55.000Z",
+                "modify_time": "2022-02-07T15:02:55.000Z"
+            }
+        ]
+    }
+}
+```
+
+### 10. 图表及配置相关——某项目新建一个可视化图表（预留API，暂时用不着）
 
 - `Method`: POST
 
@@ -311,9 +395,11 @@ captcha_client : string 用户输入的验证码
 - `Params`:
 
   project_id : string 项目编号
-  charttype_id : string 图表类型编号
+  chart_type : string 图表类型
 
-- `Notice`：在新建图表操作的时候，需要对图表的类型进行指定
+- `Notice`：
+
+  ① 在新建图表操作的时候，需要对图表的类型进行指定（参考AntV标准类，例如`Line`）
 
 - `Case`:
 
@@ -335,18 +421,18 @@ captcha_client : string 用户输入的验证码
         "data": {
             "vis_config": "{}",
             "watermark_config": "{}",
-            "id": 1,
-            "chartpic_id": "bffb2648-0f5d-46b1-8740-a74f34513888",
+            "id": 12,
+            "chartpic_id": "902004e8-51df-4380-811a-e983dbe136fc",
             "project_id": "32958067-a627-4b64-abaa-43c52734b649",
-            "charttype_id": "1",
-            "create_time": "2022-02-01T19:58:48.997Z",
-            "modify_time": "2022-02-01T19:58:48.997Z"
+            "chart_type": "Line",
+            "create_time": "2022-02-07T15:02:55.076Z",
+            "modify_time": "2022-02-07T15:02:55.076Z"
         }
     }
 }
 ```
 
-### 9. 图表及配置相关——某项目删除一个可视化图表
+### 11. 图表及配置相关——某项目删除一个可视化图表（预留API，暂时用不着）
 
 - `Method`: POST
 
@@ -376,6 +462,217 @@ captcha_client : string 用户输入的验证码
 }
 ```
 
-### 10. 图表及配置相关——更新某个图表的配置信息
+### 12. 图表及配置相关——确定/修改图表类型并初始化配置（标题 + 水印 + 可视化等配置）
 
-- 待撰写
+- `Method`: POST
+
+- `Path`: /cms/updateChartPicConfig
+
+- `Params`:
+
+  chartpic_id : string 图表编号
+
+  chart_type ：string 图表类型
+
+  chart_title : string 图表标题默认值
+
+  vis_config ：string 可视化配置json字符串默认值
+
+  watermark_config ：string 水印配置json字符串默认值
+
+- `Notice`：
+
+  ① 接口在图表类型选择界面使用，只有当该请求成功的时候，才可以跳转到下一个界面；
+
+- `Case`:
+
+```json
+// 请求参数错误
+{
+    "code": 1,
+    "message": "请求参数错误或内容缺失",
+    "result": null
+}
+```
+
+```json
+// 正常返回
+{
+    "code": 0,
+    "message": "图表配置更新成功",
+    "result": {
+        "chartpic_id": "902004e8-51df-4380-811a-e983dbe136fc",
+        "chart_type": "Line",
+        "chart_title": "默认标题",
+        "vis_config": "{\"name\": \"alexzhli\"}",
+        "watermark_config": "{\"ifOk\": true}"
+    }
+}
+```
+
+### 13. 图表及配置相关——保存某个图表的配置信息（标题 + 水印 + 可视化等配置）
+
+- 可以直接复用12接口
+- 在单独保存某个图表配置的时候使用。
+
+### 14. 图表及配置相关——获取某个图表的全部信息
+
+- `Method`: GET
+
+- `Path`: /cms/getCurrentChartPic
+
+- `Params`: 
+  chartpic_id : string 图表ID
+
+- `Notice`: 
+
+  ①  用于测试的chartpic_id为`902004e8-51df-4380-811a-e983dbe136fc`；
+
+  ② 返回的vis_config、watermark_config等字段为json的字符串，前端按需进行`JSON.parse()`等操作。
+
+- `Case`:
+
+```json
+// 请求参数错误
+{
+    "code": 1,
+    "message": "请求参数错误或内容缺失",
+    "result": null
+}
+```
+
+```json
+// 正常结果
+{
+    "code": 0,
+    "message": "图表信息查询成功",
+    "result": {
+        "data": {
+            "id": 12,
+            "chartpic_id": "902004e8-51df-4380-811a-e983dbe136fc",
+            "project_id": "32958067-a627-4b64-abaa-43c52734b649",
+            "chart_type": "Line",
+            "chart_title": "默认标题",
+            "vis_config": "{\"name\": \"alexzhli\"}",
+            "watermark_config": "{\"ifOk\": true}",
+            "export_img": null,
+            "create_time": "2022-02-07T15:02:55.000Z",
+            "modify_time": "2022-02-07T16:03:04.000Z"
+        }
+    }
+}
+```
+
+### 15. 发布与导出相关——更新当前图表的导出图片，并设置为主图
+
+- `Method`: POST
+
+- `Path`: /cms/updateCurrentChartPicExport
+
+- `Params`: 
+  project_id : string 项目ID
+
+  chartpic_id : string 图表ID
+
+  export_img ：string 导出图片base64
+
+- `Notice`: 
+
+  ①  用于测试的chartpic_id为`902004e8-51df-4380-811a-e983dbe136fc`；
+
+  ②  此操作会在更新当前导出图片的同时，将该图片设置为项目主图。
+
+- `Case` : 
+
+```json
+// 请求参数错误
+{
+    "code": 1,
+    "message": "请求参数错误或内容缺失",
+    "result": null
+}
+```
+
+```json
+// 正常结果
+{
+    "code": 0,
+    "message": "图片更新成功",
+    "result": null
+}
+```
+
+### 16. 发布与导出相关——获取当前图表的导出图片
+
+- 可以直接复用14接口
+
+### 17. 发布与导出相关——获取某个项目的数据源
+
+- 可以直接复用7接口
+
+### 18. 发布与导出相关——获取当前图表的html代码
+
+- `Method`: GET
+
+- `Path`: /cms/getChartPicHtmlString
+
+- `Params`: 
+  chartpic_id : string 图表ID
+
+- `Notice`: 
+
+  ①  用于测试的chartpic_id为`902004e8-51df-4380-811a-e983dbe136fc`；
+
+  ②  返回的html字符串已经进行了对齐换行等格式化。
+
+- `Case`:
+
+```json
+// 请求参数错误
+{
+    "code": 1,
+    "message": "请求参数错误或内容缺失",
+    "result": null
+}
+```
+
+```json
+// 正常结果
+{
+    "code": 0,
+    "message": "图表代码获取成功",
+    "result": {
+        "data": "<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"UTF-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>导出文件</title>\n    <script type=\"text/javascript\" src=\"https://unpkg.com/@antv/g2plot@latest/dist/g2plot.min.js\"></script>\n</head>\n\n<body>\n    <div id=\"container\"></div>\n</body>\n\n<script>\n    const type = \"Line\";\n    const options = {\n        \"width\": 300,\n        \"height\": 200,\n        \"autoFit\": false,\n        \"xField\": \"year\",\n        \"yField\": \"value\",\n        \"data\": [{\n            \"year\": \"1991\",\n            \"value\": 3\n        }, {\n            \"year\": \"1992\",\n            \"value\": 4\n        }]\n    };\n    new G2Plot[type]('container', options).render();\n</script>\n\n</html>"
+    }
+}
+```
+
+### 19. 发布与导出相关——下载当前项目的导出html文件
+
+- `Method`: POST
+
+- `Path`: /cms/getChartPicHtmlFile
+
+- `Params`: 
+  chartpic_id : string 图表ID
+
+- `Notice`: 
+
+  ①  用于测试的chartpic_id为`902004e8-51df-4380-811a-e983dbe136fc`；
+
+  ②  成功与否通过返回的headers中的`ifExportSuccess`字段获取，如果为`"0"`则成功，如果为`"1"`则失败。
+
+  ③  前端请求设置：`responseType: 'arraybuffer'`;
+
+  ④ 下载接口还是需要前端配合一下，将返回的buffer转为blob通过a标签点击的形式下载，代码如下：
+
+```js
+let objUrl = URL.createObjectURL(new Blob([response.data])); // 根据字段替换
+let link = document.createElement('a');
+link.download = decodeURIComponent('exportCode.html');
+link.href = objUrl;
+link.click();
+```
+
+
+

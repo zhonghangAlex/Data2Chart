@@ -28,9 +28,13 @@ __decorate([
     __metadata("design:type", String)
 ], ChartPic.prototype, "project_id", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ 'comment': '图表类型编号', 'type': sequelize_typescript_1.DataType.STRING(255), 'allowNull': false }),
+    (0, sequelize_typescript_1.Column)({ 'comment': '图表类型', 'type': sequelize_typescript_1.DataType.STRING(255) }),
     __metadata("design:type", String)
-], ChartPic.prototype, "charttype_id", void 0);
+], ChartPic.prototype, "chart_type", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ 'comment': '图表标题数据', 'type': sequelize_typescript_1.DataType.STRING(255) }),
+    __metadata("design:type", String)
+], ChartPic.prototype, "chart_title", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ 'comment': '项目配置项数据', 'type': sequelize_typescript_1.DataType.TEXT, 'defaultValue': '{}' }),
     __metadata("design:type", String)
@@ -40,7 +44,7 @@ __decorate([
     __metadata("design:type", String)
 ], ChartPic.prototype, "watermark_config", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ 'comment': '导出图片', 'type': sequelize_typescript_1.DataType.STRING(255) }),
+    (0, sequelize_typescript_1.Column)({ 'comment': '导出图片', 'type': sequelize_typescript_1.DataType.TEXT }),
     __metadata("design:type", String)
 ], ChartPic.prototype, "export_img", void 0);
 __decorate([

@@ -11,6 +11,14 @@ export default new class ProjectDao {
     }
 
     /**
+     * 传入新建项目ID，用以删除一个项目
+     * @param project_id 
+     */
+    public async deleteProject (project_id: string) {
+        return await Project.destroy({where: {project_id}});
+    }
+
+    /**
      * 传入新建项目名称，和用户名，检查有无同时匹配的项目（查重）
      * @param project_name
      * @param user_name
@@ -39,7 +47,7 @@ export default new class ProjectDao {
      * 根据项目id，更新某一个项目的数据源
      * @param project_id
      */
-    public async updateProjectData(project_id: string, data_string: string) {
-        return await Project.update({data_string}, {where: {project_id: project_id}});
+    public async updateProjectData(project_id: string, options: Record<string, any>) {
+        return await Project.update(options, {where: {project_id: project_id}});
     }
 };

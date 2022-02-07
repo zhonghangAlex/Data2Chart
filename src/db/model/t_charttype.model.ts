@@ -11,7 +11,7 @@ export default class ChartType extends Model<ChartType> {
   public id!: number;
 
   @Column({ 'comment': '图表类型编号', 'type': DataType.STRING(255), 'unique': true, 'allowNull': false })
-	public charttype_id!: string
+	public chart_type!: string
 
   @Column({ 'comment': '图表类型名称', 'type': DataType.STRING(255) })
   public charttype_name!: string;

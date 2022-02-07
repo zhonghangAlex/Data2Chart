@@ -16,8 +16,11 @@ export default class ChartPic extends Model<ChartPic> {
   @Column({ 'comment': '项目编号', 'type': DataType.STRING(255), 'allowNull': false })
 	public project_id!: string
 
-  @Column({ 'comment': '图表类型编号', 'type': DataType.STRING(255), 'allowNull': false })
-	public charttype_id!: string
+  @Column({ 'comment': '图表类型', 'type': DataType.STRING(255) })
+  public chart_type!: string
+  
+  @Column({ 'comment': '图表标题数据', 'type': DataType.STRING(255) })
+  public chart_title!: string;
 
   @Column({ 'comment': '项目配置项数据', 'type': DataType.TEXT, 'defaultValue': '{}' })
   public vis_config!: string;
@@ -25,7 +28,7 @@ export default class ChartPic extends Model<ChartPic> {
   @Column({ 'comment': '水印配置数据', 'type': DataType.TEXT, 'defaultValue': '{}' })
   public watermark_config!: string;
 
-  @Column({ 'comment': '导出图片', 'type': DataType.STRING(255) })
+  @Column({ 'comment': '导出图片', 'type': DataType.TEXT })
   public export_img!: string;
 
   @Column({ 'comment': '数据创建时间', 'type': DataType.DATE })
