@@ -109,9 +109,7 @@ captcha_client : string 用户输入的验证码
 
   ② 新建项目的同时会默认新建一个新的图表（预留了一个项目对应多图表的能力）；
 
-  ③ data_string 需要为标准json格式；
-
-  ④ `data_string`后端存储的时候是字符串，但是浏览器可能会自动将一个obj字符串化一下，所以测试的时候看一下是否需要对data_string进行`JSON.stringfy`，额外进行一次`stringfy`可能会导致`parse`失败
+  ③ data_string 需要为标准json格式的字符串。
 
 - `Case`:
 
