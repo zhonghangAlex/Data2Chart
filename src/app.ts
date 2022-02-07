@@ -5,6 +5,7 @@ import koaStatic from 'koa-static';
 import { DbIns } from './db';
 import { Config } from './config';
 import { Server } from 'http';
+import cors from 'koa2-cors';
 import { cms } from './router/cms';
 import {login} from './router/login';
 import { notFoundRouter } from './router/notFoundRouter';
@@ -74,6 +75,7 @@ export class App {
      * step2.添加系统中间件，各种前置的parser等
      */
     private addSysMidware() {
+        this.app.use(cors());
         this.app.use(notFoundRouter);
         //body parser
         this.app.use(bodyParser({ 'formLimit': '20mb', 'jsonLimit': '20mb' }));
