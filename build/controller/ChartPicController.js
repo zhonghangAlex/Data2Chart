@@ -88,7 +88,7 @@ exports.default = new class ChartPicController {
         let vis_config = ctx.request.body.vis_config;
         let watermark_config = ctx.request.body.watermark_config;
         // 缺失检查
-        if (!chartpic_id || !chart_type || !chart_title || !vis_config || !watermark_config) {
+        if (!chartpic_id || !chart_type || chart_title === undefined || !vis_config || !watermark_config) {
             ctx.body = { code: 1, message: '请求参数错误或内容缺失', result: null };
             return;
         }

@@ -10,6 +10,7 @@ const koa_bodyparser_1 = __importDefault(require("koa-bodyparser"));
 const koa_static_1 = __importDefault(require("koa-static"));
 const db_1 = require("./db");
 const config_1 = require("./config");
+const koa2_cors_1 = __importDefault(require("koa2-cors"));
 const cms_1 = require("./router/cms");
 const login_1 = require("./router/login");
 const notFoundRouter_1 = require("./router/notFoundRouter");
@@ -67,6 +68,7 @@ class App {
      * step2.添加系统中间件，各种前置的parser等
      */
     addSysMidware() {
+        this.app.use((0, koa2_cors_1.default)());
         this.app.use(notFoundRouter_1.notFoundRouter);
         //body parser
         this.app.use((0, koa_bodyparser_1.default)({ 'formLimit': '20mb', 'jsonLimit': '20mb' }));
