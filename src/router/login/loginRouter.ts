@@ -19,7 +19,11 @@ router.post('/validateUsr', ValidCaptcha, async (ctx) => {
     }
     let user_name = ctx.request.body.user_name,
         password = ctx.request.body.password;
-
+    // 请求校验
+    if (!user_name || !password) {
+        ctx.body = { 'code': 1, 'message': '请求内容或请求参数错误!', result: null };
+        return;
+    }
     const password_client = createHmac(
         'sha256',
         configIns.config.password.secretKey

@@ -22,6 +22,11 @@ router.post('/validateUsr', Captcha_1.ValidCaptcha, async (ctx) => {
         return;
     }
     let user_name = ctx.request.body.user_name, password = ctx.request.body.password;
+    // 请求校验
+    if (!user_name || !password) {
+        ctx.body = { 'code': 1, 'message': '请求内容或请求参数错误!', result: null };
+        return;
+    }
     const password_client = (0, crypto_1.createHmac)('sha256', config_1.configIns.config.password.secretKey).update(password).digest('base64');
     let user = await UserDao_1.default.findUserByName(user_name);
     if (!user) {
