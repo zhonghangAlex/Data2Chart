@@ -11,7 +11,7 @@ export default new class ChartPicController {
      */
     public async addChartPic(ctx: Router.RouterContext){
         let project_id = ctx.request.body.project_id;
-        let chart_type = ctx.request.body.chart_type || '666';
+        let chart_type = ctx.request.body.chart_type;
         ctx.body = await addChartPicFunc(project_id, chart_type);
     }
 

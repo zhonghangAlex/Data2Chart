@@ -36,11 +36,11 @@ __decorate([
     __metadata("design:type", String)
 ], ChartPic.prototype, "chart_title", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ 'comment': '项目配置项数据', 'type': sequelize_typescript_1.DataType.TEXT, 'defaultValue': '{}' }),
+    (0, sequelize_typescript_1.Column)({ 'comment': '项目配置项数据', 'type': sequelize_typescript_1.DataType.TEXT }),
     __metadata("design:type", String)
 ], ChartPic.prototype, "vis_config", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ 'comment': '水印配置数据', 'type': sequelize_typescript_1.DataType.TEXT, 'defaultValue': '{}' }),
+    (0, sequelize_typescript_1.Column)({ 'comment': '水印配置数据', 'type': sequelize_typescript_1.DataType.TEXT }),
     __metadata("design:type", String)
 ], ChartPic.prototype, "watermark_config", void 0);
 __decorate([

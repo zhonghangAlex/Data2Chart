@@ -13,7 +13,7 @@ exports.default = new class ChartPicController {
      */
     async addChartPic(ctx) {
         let project_id = ctx.request.body.project_id;
-        let chart_type = ctx.request.body.chart_type || '666';
+        let chart_type = ctx.request.body.chart_type;
         ctx.body = await (0, ChartPicService_1.addChartPicFunc)(project_id, chart_type);
     }
     /**

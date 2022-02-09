@@ -22,10 +22,10 @@ export default class ChartPic extends Model<ChartPic> {
   @Column({ 'comment': '图表标题数据', 'type': DataType.STRING(255) })
   public chart_title!: string;
 
-  @Column({ 'comment': '项目配置项数据', 'type': DataType.TEXT, 'defaultValue': '{}' })
+  @Column({ 'comment': '项目配置项数据', 'type': DataType.TEXT })
   public vis_config!: string;
 
-  @Column({ 'comment': '水印配置数据', 'type': DataType.TEXT, 'defaultValue': '{}' })
+  @Column({ 'comment': '水印配置数据', 'type': DataType.TEXT })
   public watermark_config!: string;
 
   @Column({ 'comment': '导出图片', 'type': DataType.TEXT })
