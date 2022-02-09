@@ -65,10 +65,8 @@ router.post('/validateUsr', ValidCaptcha, async (ctx) => {
 
 router.post('/logout', async (ctx) => {
     ctx.cookies.set('jwt_token', '', {'maxAge':0});
-    ctx.throw(401);
+    // ctx.throw(401);
     ctx.body = { 'code': 0, 'message': '退出登录成功', result: null };
 });
-
-
 
 export { router as loginRouter };
