@@ -60,7 +60,7 @@ router.post('/validateUsr', ValidCaptcha, async (ctx) => {
         'httpOnly':false,
     });
 
-    ctx.body = { 'code': 0, 'message': '登录成功', result: { user_name: user.user_name } };
+    ctx.body = { 'code': 0, 'message': '登录成功', result: { user_name: user.user_name, jwt_token: jwtToken } };
 });
 
 router.post('/logout', async (ctx) => {
