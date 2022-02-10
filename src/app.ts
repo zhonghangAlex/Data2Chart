@@ -26,7 +26,7 @@ export class App {
     public constructor() {
         this.app = new Koa();
         this.config = new Config();
-        this.IP = process.env.IP || '115.159.194.82';
+        this.IP = process.env.IP || '0.0.0.0';
         this.PORT = process.env.PORT ? parseInt(process.env.PORT) : 8080;
     }
 
