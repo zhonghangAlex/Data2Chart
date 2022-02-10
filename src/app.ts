@@ -94,7 +94,7 @@ export class App {
         
         let staticPath = path.resolve(__dirname, '../client/dist');
         let publicPath = path.resolve(__dirname, '../public');
-        this.app.use(koaJwt({'secret':this.config.config.jwt.secretKey, 'key':'jwt', 'cookie': 'jwt_token'}).unless({ 'path': [/^\/(index|dist|login|js|img|css|png|font|images|public)/] }));
+        this.app.use(koaJwt({'secret':this.config.config.jwt.secretKey, 'key':'jwt', 'cookie': 'jwt_token'}).unless({ 'path': [/^\/(index|dist|login|js|img|css|png|font|images|public|cms)/] }));
         this.app.use(koaStatic(staticPath, { 'index': 'index.html', 'maxage': 24 * 3600 * 1000, 'defer': true }));
         // 挂载多个静态目录
         this.app.use(koaMount('/public', koaStatic(publicPath)));
