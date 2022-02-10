@@ -26,7 +26,7 @@ export class App {
     public constructor() {
         this.app = new Koa();
         this.config = new Config();
-        this.IP = process.env.IP || '0.0.0.0';
+        this.IP = process.env.IP || '115.159.194.82';
         this.PORT = process.env.PORT ? parseInt(process.env.PORT) : 8080;
     }
 
@@ -94,7 +94,7 @@ export class App {
         
         let staticPath = path.resolve(__dirname, '../client/dist');
         let publicPath = path.resolve(__dirname, '../public');
-        this.app.use(koaJwt({'secret':this.config.config.jwt.secretKey, 'key':'jwt', 'cookie': 'jwt_token'}).unless({ 'path': [/^\/(index|login|js|img|css|font|images|public)/] }));
+        this.app.use(koaJwt({'secret':this.config.config.jwt.secretKey, 'key':'jwt', 'cookie': 'jwt_token'}).unless({ 'path': [/^\/(index|dist|login|js|img|css|png|font|images|public)/] }));
         this.app.use(koaStatic(staticPath, { 'index': 'index.html', 'maxage': 24 * 3600 * 1000, 'defer': true }));
         // 挂载多个静态目录
         this.app.use(koaMount('/public', koaStatic(publicPath)));

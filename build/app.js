@@ -24,7 +24,7 @@ class App {
     constructor() {
         this.app = new koa_1.default();
         this.config = new config_1.Config();
-        this.IP = process.env.IP || '0.0.0.0';
+        this.IP = process.env.IP || '115.159.194.82';
         this.PORT = process.env.PORT ? parseInt(process.env.PORT) : 8080;
     }
     /**
@@ -86,7 +86,7 @@ class App {
         });
         let staticPath = path_1.default.resolve(__dirname, '../client/dist');
         let publicPath = path_1.default.resolve(__dirname, '../public');
-        this.app.use((0, koa_jwt_1.default)({ 'secret': this.config.config.jwt.secretKey, 'key': 'jwt', 'cookie': 'jwt_token' }).unless({ 'path': [/^\/(index|login|js|img|css|font|images|public)/] }));
+        this.app.use((0, koa_jwt_1.default)({ 'secret': this.config.config.jwt.secretKey, 'key': 'jwt', 'cookie': 'jwt_token' }).unless({ 'path': [/^\/(index|dist|login|js|img|css|png|font|images|public)/] }));
         this.app.use((0, koa_static_1.default)(staticPath, { 'index': 'index.html', 'maxage': 24 * 3600 * 1000, 'defer': true }));
         // 挂载多个静态目录
         this.app.use((0, koa_mount_1.default)('/public', (0, koa_static_1.default)(publicPath)));

@@ -17,10 +17,10 @@ router.get('/getcaptcha', Captcha_1.CreateCaptcha, async (ctx) => {
     ctx.body = ctx.state.captcha_svg;
 });
 router.post('/validateUsr', Captcha_1.ValidCaptcha, async (ctx) => {
-    if (!ctx.state.captcha_valid) {
-        ctx.body = { 'code': 1, 'message': '验证码错误!', result: null };
-        return;
-    }
+    // if (!ctx.state.captcha_valid) {
+    //     ctx.body = { 'code': 1, 'message': '验证码错误!', result: null };
+    //     return;
+    // }
     let user_name = ctx.request.body.user_name, password = ctx.request.body.password;
     // 请求校验
     if (!user_name || !password) {
