@@ -13,10 +13,10 @@ router.get('/getcaptcha', CreateCaptcha, async (ctx) => {
 });
 
 router.post('/validateUsr', ValidCaptcha, async (ctx) => {
-    if (!ctx.state.captcha_valid) {
-        ctx.body = { 'code': 1, 'message': '验证码错误!', result: null };
-        return;
-    }
+    // if (!ctx.state.captcha_valid) {
+    //     ctx.body = { 'code': 1, 'message': '验证码错误!', result: null };
+    //     return;
+    // }
     let user_name = ctx.request.body.user_name,
         password = ctx.request.body.password;
     // 请求校验
