@@ -1,5 +1,10 @@
-# Data2Chart Project
-> 项目主站: [https://datavis.all1024.com](https://datavis.all1024.com)
+# Data2Chart
+一个可以在线导入数据并且可视化配置图表的网站
+- 项目主站： [https://data2chart.all1024.com](https://data2chart.all1024.com)
+- 项目前端Github：https://github.com/Merlin218/Youth-Training-Project
+- 测试账号：admin
+- 测试密码：123456
+
 ## 1. 快速开始
 
 ### 1.1 开发
